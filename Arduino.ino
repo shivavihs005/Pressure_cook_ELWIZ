@@ -613,6 +613,8 @@ void loop()
 #include <Adafruit_LiquidCrystal.h>
 
 int seconds = 0;
+int a = 0;
+int b = 0;
 int mode_select = 0;
 int current_value = 0;
 int cup_select = 0;
@@ -621,7 +623,7 @@ unsigned long ptime = 2;
 unsigned long ntime = 4;
 
 bool MODE = 0;
-bool isStoring = 1;
+bool isStoring = 0;
 
 const int pot = A0;
 const int btn = 2;
@@ -646,25 +648,33 @@ void loop()
     {
         isStoring = !isStoring;
         delay(1000); // Debounce delay
-    }
-
-    if (isStoring)
+      
+      if (isStoring)
     {
 
         current_value = analogRead(pot);
-        mode_select = current_value;
+        a = current_value;
     }
+    
     else
     {
 
         current_value = analogRead(pot);
-        cup_select = current_value;
+        b = current_value;
     }
+    }
+
+    
+  mode_select = a;
+  cup_select = b;
+
 
     Serial.print("Mode : ");
     Serial.println(mode_select);
     Serial.print("Cups : ");
     Serial.println(cup_select);
+    //Serial.println("Cooking mode selected ");
+
 
     /*if (!isStoring) {
       Serial.println("Storing Mode: ON");
@@ -686,7 +696,7 @@ void loop()
         lcd_1.setCursor(0, 1);
         lcd_1.print("Cups : 1");
         digitalWrite(LED_BUILTIN, HIGH); // heater on
-        delay(3200);                     // Timer for 32 mins
+        delay(5200);                     // Timer for 32 mins
         cooking_done();
     }
     // ---------------Cup2----------------
