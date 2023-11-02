@@ -616,11 +616,9 @@ int seconds = 0;
 int a = 0;
 int b = 0;
 int mode_select = 0;
-int current_value = 0;
 int cup_select = 0;
-
-unsigned long ptime = 2;
-unsigned long ntime = 4;
+char rice_type[] = " ";
+int cups_value = 0;
 
 bool MODE = 0;
 bool isStoring = 0;
@@ -652,15 +650,14 @@ void loop()
       if (isStoring)
     {
 
-        current_value = analogRead(pot);
-        a = current_value;
+    a = analogRead(pot);
     }
     
     else
     {
 
-        current_value = analogRead(pot);
-        b = current_value;
+        b = analogRead(pot);
+    
     }
     }
 
@@ -1264,9 +1261,24 @@ void loop()
     }
 }
 
+    
+ 
+    void rice(rice_type, cups_value, int time)
+    {
+        lcd_1.clear();
+        lcd_1.setCursor(0, 0);
+        lcd_1.print(rice_type);
+        lcd_1.setCursor(0, 1);
+        lcd_1.print("Cups : %d",cups_value);
+        digitalWrite(LED_BUILTIN, HIGH); // heater on
+        delay(time);                     // Timer for 35 mins
+        cooking_done();
+    }
+
     void cooking_done()
     {
         lcd_1.clear();
         lcd_1.setCursor(0, 0);
         lcd_1.print("Cooking Done");
+        
     }
