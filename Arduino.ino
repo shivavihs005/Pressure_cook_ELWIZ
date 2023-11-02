@@ -628,6 +628,31 @@ const int btn = 2;
 
 Adafruit_LiquidCrystal lcd_1(0);
 
+void rice_select(char rice_type[],int cups_value, int time)
+    {
+        lcd_1.clear();
+        lcd_1.setCursor(0, 0);
+        lcd_1.print(rice_type);
+        lcd_1.setCursor(0, 1);
+        lcd_1.print("Cups : ");
+  		lcd_1.setCursor(7, 1);
+  		lcd_1.print(cups_value);
+  		//lcd_1.pri
+        digitalWrite(LED_BUILTIN, HIGH); // heater on
+        delay(time);                     // Timer for 35 mins
+        cooking_done();
+    }
+
+    void cooking_done()
+    {
+        lcd_1.clear();
+        lcd_1.setCursor(0, 0);
+        lcd_1.print("Cooking Done");
+        // servo motor op
+        // maintain 45 temp until reset btn is pressed
+        
+    }
+
 void setup()
 {
     lcd_1.begin(16, 2);
@@ -686,55 +711,23 @@ void loop()
     // ---------------Cup1----------------
     if (mode_select > 0 && mode_select <= 73 && cup_select > 0 && cup_select <= 255)
     {
-
-        lcd_1.clear();
-        lcd_1.setCursor(0, 0);
-        lcd_1.print("White Rice");
-        lcd_1.setCursor(0, 1);
-        lcd_1.print("Cups : 1");
-        digitalWrite(LED_BUILTIN, HIGH); // heater on
-        delay(5200);                     // Timer for 32 mins
-        cooking_done();
+        rice_select("White Rice", 1, 3200); // time 32 min
     }
     // ---------------Cup2----------------
     if (mode_select > 0 && mode_select <= 73 && cup_select >= 256 && cup_select <= 511)
     {
-
-        lcd_1.clear();
-        lcd_1.setCursor(0, 0);
-        lcd_1.print("White Rice");
-        lcd_1.setCursor(0, 1);
-        lcd_1.print("Cups : 2");
-        digitalWrite(LED_BUILTIN, HIGH); // heater on
-        delay(3500);                     // Timer for 35 mins
-        cooking_done();
+        rice_select("White Rice", 2, 3500); // time 35 min       
     }
     // ---------------Cup3----------------
     if (mode_select > 0 && mode_select <= 73 && cup_select >= 512 && cup_select <= 767)
     {
-        lcd_1.clear();
-        lcd_1.setCursor(0, 0);
-        lcd_1.print("White Rice");
-        lcd_1.setCursor(0, 1);
-        lcd_1.print("Cups : 3");
-        digitalWrite(LED_BUILTIN, HIGH); // heater on
-        delay(3800);                     // Timer for 38 mins
-        cooking_done();
+        rice_select("White Rice", 3, 3800); // time 38 min
     }
     // ---------------Cup4----------------
     if (mode_select > 0 && mode_select <= 73 && cup_select >= 768 && cup_select <= 1023)
     {
-        lcd_1.clear();
-        lcd_1.setCursor(0, 0);
-        lcd_1.print("White Rice");
-        lcd_1.setCursor(0, 1);
-        lcd_1.print("Cups : 4");
-        digitalWrite(LED_BUILTIN, HIGH); // heater on
-        delay(4200);                     // Timer for 42 mins
-        cooking_done();
+        rice_select("White Rice", 4, 4200); // time 42 min
     }
-
-
 
 
     // ---------------------------------Mode2--------------------------------
@@ -742,107 +735,50 @@ void loop()
     // ---------------Cup1----------------
     if (mode_select >= 74 && mode_select <= 146 && cup_select > 0 && cup_select <= 255)
     {
-
-        lcd_1.clear();
-        lcd_1.setCursor(0, 0);
-        lcd_1.print("Black Rice");
-        lcd_1.setCursor(0, 1);
-        lcd_1.print("Cups : 1");
-        digitalWrite(LED_BUILTIN, HIGH); // heater on
-        delay(5500);                     // Timer for 55 mins
-        cooking_done();
+        rice_select("Black Rice", 1, 5500); // time 55 min
     }
     // ---------------Cup2----------------
     if (mode_select >= 74 && mode_select <= 146 && cup_select >= 256 && cup_select <= 511)
     {
-
-        lcd_1.clear();
-        lcd_1.setCursor(0, 0);
-        lcd_1.print("Black Rice");
-        lcd_1.setCursor(0, 1);
-        lcd_1.print("Cups : 2");
-        digitalWrite(LED_BUILTIN, HIGH); // heater on
-        delay(5700);                     // Timer for 57 mins
-        cooking_done();
+        rice_select("Black Rice", 2, 5700); // time 57 min
     }
     // ---------------Cup3----------------
     if (mode_select >= 74 && mode_select <= 146 && cup_select >= 512 && cup_select <= 767)
     {
-        lcd_1.clear();
-        lcd_1.setCursor(0, 0);
-        lcd_1.print("Black Rice");
-        lcd_1.setCursor(0, 1);
-        lcd_1.print("Cups : 3");
-        digitalWrite(LED_BUILTIN, HIGH); // heater on
-        delay(6100);                     // Timer for 61 mins
-        cooking_done();
+        rice_select("Black Rice", 3, 6100); // time 61 min
     }
     // ---------------Cup4----------------
     if (mode_select >= 74 && mode_select <= 146 && cup_select >= 768 && cup_select <= 1023)
     {
-        /////// Cannot cook
-        // lcd_1.clear();
-        // lcd_1.setCursor(0, 0);
-        // lcd_1.print("Black Rice");
-        // lcd_1.setCursor(0, 1);
-        // lcd_1.print("Cups : 4");
-        // digitalWrite(LED_BUILTIN, HIGH); // heater on
-        // delay(6200);                     // Timer for 62 mins
-        // cooking_done();
+        rice_select("Black Rice", 4, 0); // time 0 min
+        lcd_1.clear();
+        lcd_1.print("Cannot cook");
     }
+
 
     // ---------------------------------Mode3--------------------------------
 
     // ---------------Cup1----------------
     if (mode_select >= 147 && mode_select <= 219 && cup_select > 0 && cup_select <= 255)
     {
-
-        lcd_1.clear();
-        lcd_1.setCursor(0, 0);
-        lcd_1.print("Brown Rice");
-        lcd_1.setCursor(0, 1);
-        lcd_1.print("Cups : 1");
-        digitalWrite(LED_BUILTIN, HIGH); // heater on
-        delay(5500);                     // Timer for 55 mins
-        cooking_done();
+        rice_select("Brown Rice", 1, 5500); // time 55 min
     }
     // ---------------Cup2----------------
     if (mode_select >= 147 && mode_select <= 219 && cup_select >= 256 && cup_select <= 511)
     {
-
-        lcd_1.clear();
-        lcd_1.setCursor(0, 0);
-        lcd_1.print("Brown Rice");
-        lcd_1.setCursor(0, 1);
-        lcd_1.print("Cups : 2");
-        digitalWrite(LED_BUILTIN, HIGH); // heater on
-        delay(5700);                     // Timer for 57 mins
-        cooking_done();
+        rice_select("Brown Rice", 2, 5700); // time 57 min
     }
     // ---------------Cup3----------------
     if (mode_select >= 147 && mode_select <= 219 && cup_select >= 512 && cup_select <= 767)
     {
-        lcd_1.clear();
-        lcd_1.setCursor(0, 0);
-        lcd_1.print("Brown Rice");
-        lcd_1.setCursor(0, 1);
-        lcd_1.print("Cups : 3");
-        digitalWrite(LED_BUILTIN, HIGH); // heater on
-        delay(6100);                     // Timer for 61 mins
-        cooking_done();
+        rice_select("Brown Rice", 3, 6100); // time 61 min
     }
     // ---------------Cup4----------------
     if (mode_select >= 147 && mode_select <= 219 && cup_select >= 768 && cup_select <= 1023)
     {
-        /////// Cannot cook
-        // lcd_1.clear();
-        // lcd_1.setCursor(0, 0);
-        // lcd_1.print("Brown Rice");
-        // lcd_1.setCursor(0, 1);
-        // lcd_1.print("Cups : 4");
-        // digitalWrite(LED_BUILTIN, HIGH); // heater on
-        // delay(6200);                     // Timer for 62 mins
-        // cooking_done();
+        rice_select("Brown Rice", 4, 0); // time 0 min
+        lcd_1.clear();
+        lcd_1.print("Cannot cook");
     }
 
 
@@ -1260,25 +1196,3 @@ void loop()
         cooking_done();
     }
 }
-
-    
- 
-    void rice(rice_type, cups_value, int time)
-    {
-        lcd_1.clear();
-        lcd_1.setCursor(0, 0);
-        lcd_1.print(rice_type);
-        lcd_1.setCursor(0, 1);
-        lcd_1.print("Cups : %d",cups_value);
-        digitalWrite(LED_BUILTIN, HIGH); // heater on
-        delay(time);                     // Timer for 35 mins
-        cooking_done();
-    }
-
-    void cooking_done()
-    {
-        lcd_1.clear();
-        lcd_1.setCursor(0, 0);
-        lcd_1.print("Cooking Done");
-        
-    }
